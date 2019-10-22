@@ -24,7 +24,10 @@ server.on('connection', (client) => {
   client.on('data', (data) => {
     console.log('Client is requesting: ', data);
 
-    if (data === 'files') {
+    if (data === 'a') console.log('An a');
+
+    if (data.includes('files')) {
+      console.log('Printing file request to client.');
       client.write(`The following files are currently available:\n ${currentFiles}`);
     }
     if (data.match(/^down/i)) {

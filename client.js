@@ -1,5 +1,8 @@
 const net = require('net');
 const fs = require('fs');
+const io = process.stdin;
+
+io.setEncoding('utf8');
 
 const connect = function(server) {
   const conn = net.createConnection({
@@ -12,7 +15,6 @@ const connect = function(server) {
   conn.on('connect', () => {
     console.log('Connection established.');
     conn.write('files');
-    conn.write('down Bumpkin');
   });
 
   conn.on('data', (data) => {
@@ -28,9 +30,15 @@ const connect = function(server) {
 
   return conn;
 };
+
 const save = function(file, path) {
   
 };
 
-connect('localhost');
+const conn = connect('localhost');
+
+io.on('data', (data) => {
+  conn.write(data);
+  console.log('Sent:', data);
+});
 //save('g', 'g', 'temp', 'test');

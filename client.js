@@ -12,25 +12,25 @@ const connect = function(server) {
   conn.on('connect', () => {
     console.log('Connection established.');
     conn.write('files');
-    conn.write('down test');
+    conn.write('down Bumpkin');
   });
 
   conn.on('data', (data) => {
-    console.log(data);
+    if (false) {
+
+    } else console.log(data);
   });
 
   return conn;
 };
 
-const save = function(connection, data, path, request) {
-  fs.writeFile(`${path}/${request}.txt`, '', (err) => {
-    if (err) {
-      return console.log(err);
-    }
-  });
+const requestFile = function(connection, file, path) {
 
-  fs.createWriteStream(`${path}/${request}`, );
+}
+
+const save = function(connection, data, path, request) {
+  
 };
 
-//connect('localhost');
-save('g', 'g', 'temp', 'test');
+connect('localhost');
+//save('g', 'g', 'temp', 'test');

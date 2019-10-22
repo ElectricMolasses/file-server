@@ -28,8 +28,28 @@ server.on('connection', (client) => {
       client.write(`The following files are currently available:\n ${currentFiles}`);
     }
     if (data.match(/^down/i)) {
-      data.split(' ');
+      data = data.split(' ');
       console.log('Client is requesting: ', data);
+      console.log(data[1]);
+      if (fs.existsSync('files/' + data[1])) {
+        console.log('Buffering');
+        bufferFile('files/' + data[1], client, sendTo);
+      } else {
+        console.log('Invalid file');
+      }
     }
   });
 });
+
+const bufferFile = function(file, client, callback) {
+  fs.readFile(file, 'utf8', (err, data) => {
+    if (err) {
+      console.log(err);
+    }
+    callback(client, data);
+  });
+};
+
+const sendTo = function(client, data) {
+  client.write('FILE:: ' + data);
+};

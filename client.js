@@ -12,6 +12,7 @@ const connect = function(server) {
   conn.on('connect', () => {
     console.log('Connection established.');
     conn.write('files');
+    conn.write('down test');
   });
 
   conn.on('data', (data) => {
@@ -21,4 +22,15 @@ const connect = function(server) {
   return conn;
 };
 
-connect('localhost');
+const save = function(connection, data, path, request) {
+  fs.writeFile(`${path}/${request}.txt`, '', (err) => {
+    if (err) {
+      return console.log(err);
+    }
+  });
+
+  fs.createWriteStream(`${path}/${request}`, );
+};
+
+//connect('localhost');
+save('g', 'g', 'temp', 'test');

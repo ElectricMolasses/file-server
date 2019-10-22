@@ -26,8 +26,10 @@ server.on('connection', (client) => {
 
     if (data === 'files') {
       client.write(`The following files are currently available:\n ${currentFiles}`);
-    } else {
-      // Check to see if the string is an available file, and transfer it if so.
+    }
+    if (data.match(/^down/i)) {
+      data.split(' ');
+      console.log('Client is requesting: ', data);
     }
   });
 });

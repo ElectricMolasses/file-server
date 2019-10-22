@@ -11,10 +11,11 @@ const connect = function(server) {
 
   conn.on('connect', () => {
     console.log('Connection established.');
+    conn.write('files');
   });
 
   conn.on('data', (data) => {
-    
+    console.log(data);
   });
 
   return conn;

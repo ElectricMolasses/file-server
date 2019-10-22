@@ -4,6 +4,8 @@ const io = process.stdin;
 
 io.setEncoding('utf8');
 
+let currentFileName;
+
 const connect = function(server) {
   const conn = net.createConnection({
     host: server,
@@ -21,7 +23,7 @@ const connect = function(server) {
     console.log(data + '\n');
     if (data.match(/^FILE/i)) {
       console.log('Receiving...');
-      fs.writeFile('temp/Bumpking', data, (err) => {
+      fs.writeFile('temp/' + currentFileName, data, (err) => {
         if (err) console.log(err);
         else console.log('saved');
       });
@@ -38,6 +40,9 @@ const save = function(file, path) {
 const conn = connect('localhost');
 
 io.on('data', (data) => {
+  if (data.toLowerCase().includes('down')) {
+    currentFileName = data.split(' ')[1].replace('\n', '');
+  }
   conn.write(data);
   console.log('Sent:', data);
 });

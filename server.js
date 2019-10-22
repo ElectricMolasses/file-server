@@ -26,12 +26,13 @@ server.on('connection', (client) => {
 
     if (data === 'a') console.log('An a');
 
-    if (data.includes('files')) {
+    if (data.replace('\n', '') === 'files') {
       console.log('Printing file request to client.');
       client.write(`The following files are currently available:\n ${currentFiles}`);
     }
     if (data.match(/^down/i)) {
       data = data.split(' ');
+      data[1] = data[1].replace('\n', '');
       console.log('Client is requesting: ', data);
       console.log(data[1]);
       if (fs.existsSync('files/' + data[1])) {

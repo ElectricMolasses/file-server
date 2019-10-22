@@ -16,19 +16,19 @@ const connect = function(server) {
   });
 
   conn.on('data', (data) => {
-    if (false) {
-
-    } else console.log(data);
+    console.log(data + '\n');
+    if (data.match(/^FILE/i)) {
+      console.log('Receiving...');
+      fs.writeFile('temp/Bumpking', data, (err) => {
+        if (err) console.log(err);
+        else console.log('saved');
+      });
+    } else console.log('failed');
   });
 
   return conn;
 };
-
-const requestFile = function(connection, file, path) {
-
-}
-
-const save = function(connection, data, path, request) {
+const save = function(file, path) {
   
 };
 
